@@ -18,7 +18,7 @@ public abstract class Algorithm {
         this.maxSectorId = scenario.getMaxSectorId();
         this.headPosition = scenario.getInitialHeadPosition();
         this.totalDistance = 0;
-        this.requests = scenario.getRequests();
+        this.requests = scenario.getCopiedRequests();
     }
 
     public void printPostRunInformation() {

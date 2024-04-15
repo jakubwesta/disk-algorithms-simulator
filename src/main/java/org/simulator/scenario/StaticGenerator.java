@@ -10,7 +10,7 @@ public class StaticGenerator implements Generator {
     public StaticGenerator(int maxSectorId, ArrayList<Integer> requestsInts) {
         this.amount = requestsInts.size();
         this.maxSectorId = maxSectorId;
-        this.requests = new ArrayList<Request>();
+        this.requests = new ArrayList<>();
         for (Integer integer : requestsInts) {
             requests.add(new Request(integer, 0));
         }

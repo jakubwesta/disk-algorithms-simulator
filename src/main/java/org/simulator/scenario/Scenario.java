@@ -24,8 +24,12 @@ public class Scenario {
         savedRequests = generator.generateRequests(requestsAmount, maxSectorId);
     }
     
-    public ArrayList<Request> getRequests() {
-        return savedRequests;
+    public ArrayList<Request> getCopiedRequests() {
+        ArrayList<Request> copiedRequests = new ArrayList<>();
+        for (Request request : savedRequests) {
+            copiedRequests.add(request.copy());
+        }
+        return copiedRequests;
     }
 
     public void printInformation() {

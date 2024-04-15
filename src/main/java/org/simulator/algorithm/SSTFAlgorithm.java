@@ -4,9 +4,19 @@ import org.simulator.scenario.Request;
 import org.simulator.scenario.Scenario;
 
 public class SSTFAlgorithm extends Algorithm {
-
     public SSTFAlgorithm(Scenario scenario) {
         super(scenario);
+    }
+
+    @Override
+    public void run() {
+        while (!requests.isEmpty()) {
+            Request nearestRequest = findNearest();
+            int nextSector = nearestRequest.sectorId();
+            totalDistance += Math.abs(headPosition - nextSector);
+            headPosition = nextSector;
+            requests.remove(nearestRequest);
+        }
     }
 
     private Request findNearest() {
@@ -20,17 +30,6 @@ public class SSTFAlgorithm extends Algorithm {
             }
         }
         return nearest;
-    }
-
-    @Override
-    public void run() {
-        while (!requests.isEmpty()) {
-            Request nearestRequest = findNearest();
-            int nextSector = nearestRequest.sectorId();
-            totalDistance += Math.abs(headPosition - nextSector);
-            headPosition = nextSector;
-            requests.remove(nearestRequest);
-        }
     }
 
     @Override

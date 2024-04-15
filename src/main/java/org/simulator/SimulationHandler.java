@@ -1,7 +1,6 @@
 package org.simulator;
 
-import org.simulator.algorithm.Algorithm;
-import org.simulator.algorithm.FCFSAlgorithm;
+import org.simulator.algorithm.*;
 import org.simulator.scenario.Scenario;
 import org.simulator.scenario.StaticGenerator;
 
@@ -28,15 +27,25 @@ public class SimulationHandler {
     public void runTests() {
         for (Scenario scenario : scenarios) {
             runSimulation(new FCFSAlgorithm(scenario));
+            runSimulation(new SSTFAlgorithm(scenario));
+
+            runSimulation(new SCANAlgorithm(scenario, true));
+            runSimulation(new SCANAlgorithm(scenario, false));
+
+            runSimulation(new CSCANAlgorithm(scenario, true));
+            runSimulation(new CSCANAlgorithm(scenario, false));
         }
     }
 
     private void runSimulation(Algorithm algorithm) {
         algorithm.run();
+
         System.out.println("=".repeat(100));
         System.out.println("Results:");
+
         algorithm.getScenario().printInformation();
         algorithm.printPostRunInformation();
+
         System.out.println("=".repeat(100));
     }
 }
