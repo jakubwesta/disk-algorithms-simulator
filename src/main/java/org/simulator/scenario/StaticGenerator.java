@@ -12,7 +12,7 @@ public class StaticGenerator implements Generator {
         this.maxSectorId = maxSectorId;
         this.requests = new ArrayList<>();
         for (Integer integer : requestsInts) {
-            requests.add(new Request(integer, 0));
+            requests.add(new Request(integer));
         }
     }
 
@@ -32,6 +32,6 @@ public class StaticGenerator implements Generator {
 
     @Override
     public String getName() {
-        return "All requests arrive at time = 0";
+        return "Custom generator";
     }
 }

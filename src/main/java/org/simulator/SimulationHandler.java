@@ -1,6 +1,8 @@
 package org.simulator;
 
 import org.simulator.algorithm.*;
+import org.simulator.scenario.RandomGenerator;
+import org.simulator.scenario.RandomWithDeadlineGenerator;
 import org.simulator.scenario.Scenario;
 import org.simulator.scenario.StaticGenerator;
 
@@ -8,13 +10,39 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SimulationHandler {
-    private ArrayList<Scenario> scenarios = new ArrayList<>(List.of(
+    private final ArrayList<Scenario> scenarios = new ArrayList<>(List.of(
             new Scenario(
                     new StaticGenerator(
                             199,
                             new ArrayList<>(List.of(176, 79, 34, 60, 92, 11, 41, 114))
                     ),
                     8,
+                    199,
+                    50
+            ),
+            new Scenario(
+                    new RandomGenerator(),
+                    100,
+                    199,
+                    50
+            ),
+            new Scenario(
+                    new RandomGenerator(),
+                    800,
+                    199,
+                    50
+            ),
+            new Scenario(
+                    new RandomGenerator(),
+                    5000,
+                    199,
+                    50
+            )
+    ));
+    private final ArrayList<Scenario> realTimeScenarios = new ArrayList<>(List.of(
+            new Scenario(
+                    new RandomWithDeadlineGenerator(),
+                    100,
                     199,
                     50
             )
@@ -25,6 +53,8 @@ public class SimulationHandler {
     }
 
     public void runTests() {
+        System.out.println("\n\n\nNon real time algorithms:\n\n\n");
+
         for (Scenario scenario : scenarios) {
             runSimulation(new FCFSAlgorithm(scenario));
             runSimulation(new SSTFAlgorithm(scenario));
@@ -34,6 +64,15 @@ public class SimulationHandler {
 
             runSimulation(new CSCANAlgorithm(scenario, true));
             runSimulation(new CSCANAlgorithm(scenario, false));
+
+            System.out.println("\n\n");
+        }
+
+        System.out.println("\n\n\nReal time algorithms:\n\n\n");
+
+        for (Scenario scenario : realTimeScenarios) {
+            runSimulation(new EDFAlgorithm(scenario));
+            runSimulation(new FDSCANAlgorithm(scenario));
         }
     }
 

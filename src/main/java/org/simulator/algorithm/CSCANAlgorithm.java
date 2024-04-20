@@ -15,7 +15,7 @@ public class CSCANAlgorithm extends Algorithm {
 
     @Override
     public void run() {
-        requests.sort(Comparator.comparingInt(Request::sectorId));
+        requests.sort(Comparator.comparingInt(Request::getSectorId));
 
         while (!requests.isEmpty()) {
             Request nextRequest = findNextRequest();
@@ -29,8 +29,8 @@ public class CSCANAlgorithm extends Algorithm {
                     headPosition = maxSectorId;
                 }
             } else {
-                totalDistance += Math.abs(headPosition - nextRequest.sectorId());
-                headPosition = nextRequest.sectorId();
+                totalDistance += Math.abs(headPosition - nextRequest.getSectorId());
+                headPosition = nextRequest.getSectorId();
                 requests.remove(nextRequest);
             }
         }
@@ -39,13 +39,13 @@ public class CSCANAlgorithm extends Algorithm {
     private Request findNextRequest() {
         if (goingRight) {
             for (int i = 0; i < requests.size(); i++) {
-                if (requests.get(i).sectorId() >= headPosition) {
+                if (requests.get(i).getSectorId() >= headPosition) {
                     return requests.get(i);
                 }
             }
         } else {
             for (int i = requests.size() - 1; i >= 0; i--) {
-                if (requests.get(i).sectorId() <= headPosition) {
+                if (requests.get(i).getSectorId() <= headPosition) {
                     return requests.get(i);
                 }
             }

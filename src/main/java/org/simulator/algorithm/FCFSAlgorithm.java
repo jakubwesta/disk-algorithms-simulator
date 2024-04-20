@@ -11,7 +11,7 @@ public class FCFSAlgorithm extends Algorithm {
     @Override
     public void run() {
         for (Request request : requests) {
-            int nextSector = request.sectorId();
+            int nextSector = request.getSectorId();
             totalDistance += Math.abs(headPosition - nextSector);
             headPosition = nextSector;
         }

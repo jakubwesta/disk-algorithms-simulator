@@ -12,7 +12,7 @@ public class SSTFAlgorithm extends Algorithm {
     public void run() {
         while (!requests.isEmpty()) {
             Request nearestRequest = findNearest();
-            int nextSector = nearestRequest.sectorId();
+            int nextSector = nearestRequest.getSectorId();
             totalDistance += Math.abs(headPosition - nextSector);
             headPosition = nextSector;
             requests.remove(nearestRequest);
@@ -23,7 +23,7 @@ public class SSTFAlgorithm extends Algorithm {
         Request nearest = null;
         int nearestDistance = maxSectorId;
         for (Request request : requests) {
-            int sectorIdToCheck = request.sectorId();
+            int sectorIdToCheck = request.getSectorId();
             if (Math.abs(headPosition - sectorIdToCheck) < nearestDistance || nearest == null) {
                 nearestDistance = Math.abs(headPosition - sectorIdToCheck);
                 nearest = request;
